@@ -1,7 +1,12 @@
 import axios from "axios";
 
+const rawBaseURL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const baseURL = rawBaseURL.replace(/\/$/, "").endsWith("/api")
+  ? rawBaseURL.replace(/\/$/, "")
+  : `${rawBaseURL.replace(/\/$/, "")}/api`;
+
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
+  baseURL,
 });
 
 export const getBooks = () => API.get("/books");
